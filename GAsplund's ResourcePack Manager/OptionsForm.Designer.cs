@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.useCustomSourceCheckBox = new System.Windows.Forms.CheckBox();
             this.customSourceTextBox = new System.Windows.Forms.TextBox();
             this.ApplyButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
@@ -41,18 +40,6 @@
             this.CustomSourceRadioButton = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // useCustomSourceCheckBox
-            // 
-            this.useCustomSourceCheckBox.AutoSize = true;
-            this.useCustomSourceCheckBox.Location = new System.Drawing.Point(162, 174);
-            this.useCustomSourceCheckBox.Name = "useCustomSourceCheckBox";
-            this.useCustomSourceCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.useCustomSourceCheckBox.Size = new System.Drawing.Size(120, 17);
-            this.useCustomSourceCheckBox.TabIndex = 20;
-            this.useCustomSourceCheckBox.Text = "Use Custom Source";
-            this.useCustomSourceCheckBox.UseVisualStyleBackColor = true;
-            this.useCustomSourceCheckBox.CheckedChanged += new System.EventHandler(this.useCustomSourceCheckBox_CheckedChanged);
             // 
             // customSourceTextBox
             // 
@@ -174,6 +161,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 261);
+            this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.CustomSourceRadioButton);
             this.Controls.Add(this.OfficialWynnRadioButton);
@@ -184,7 +172,6 @@
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.ApplyButton);
-            this.Controls.Add(this.useCustomSourceCheckBox);
             this.Controls.Add(this.customSourceTextBox);
             this.MaximizeBox = false;
             this.Name = "OptionsForm";
@@ -195,8 +182,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox useCustomSourceCheckBox;
         public System.Windows.Forms.TextBox customSourceTextBox;
         private System.Windows.Forms.Button ApplyButton;
         private new System.Windows.Forms.Button CancelButton;

@@ -79,9 +79,7 @@ namespace GAsplund_s_WynnPack_Manager
                             currentSelectedItemNumber++;
                             updateEditionsList(JsonConvert.SerializeObject((object)currentPackList[currentSelectedItemNumber.ToString()]["editions"]));
                             packDescription = (string)currentPackList[currentSelectedItemNumber.ToString()]["description"];
-                            if ((string)currentEditionsList[currentSelectedEditionNumber.ToString()]["edition_preview"] == null)
-                            { packImage = (string)currentEditionsList[currentSelectedEditionNumber.ToString()]["edition_preview"];}
-                            else { packImage = (string)currentPackList[currentSelectedItemNumber.ToString()]["image_preview"]; }
+                            packImage = (string)currentPackList[currentSelectedItemNumber.ToString()]["image_preview"];
                             string packResolutions = (string)currentPackList[currentSelectedItemNumber.ToString()]["resolutions"];
                             string packCompatibility = (string)currentPackList[currentSelectedItemNumber.ToString()]["compatibility"];
                             packVersion = (string)currentPackList[currentSelectedItemNumber.ToString()]["latest_version"];
@@ -302,6 +300,13 @@ namespace GAsplund_s_WynnPack_Manager
                 
             }
             pastSelectedEdition = PackEditionComboBox.SelectedItem.ToString();
+
+            try
+            {
+                if ((string)currentEditionsList[currentSelectedEditionNumber.ToString()]["edition_preview"] != null)
+                { packImage = (string)currentEditionsList[currentSelectedEditionNumber.ToString()]["edition_preview"]; packPreviewPictureBox.ImageLocation = packImage; }
+            }
+            catch { }
         }
 
         private void packPreviewPictureBox_Click(object sender, EventArgs e)

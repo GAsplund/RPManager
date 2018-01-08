@@ -1,0 +1,11 @@
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\bin\Debug\GAsplund's Resourcepack Manager.exe.config
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\bin\Debug\GAsplund's Resourcepack Manager.exe
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\bin\Debug\GAsplund's Resourcepack Manager.pdb
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\bin\Debug\Newtonsoft.Json.dll
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\bin\Debug\Newtonsoft.Json.xml
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund_s_WynnPack_Manager.ManagerForm.resources
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund_s_WynnPack_Manager.OptionsForm.resources
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAspsRPmngr.Properties.Resources.resources
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's ResourcePack Manager.csproj.GenerateResource.Cache
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's Resourcepack Manager.exe
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's Resourcepack Manager.pdb
