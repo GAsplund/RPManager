@@ -1,0 +1,13 @@
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\GAsplund's WynnPack Manager.exe.config
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\GAsplund's WynnPack Manager.exe
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\GAsplund's WynnPack Manager.pdb
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\Newtonsoft.Json.dll
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\Newtonsoft.Json.xml
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\obj\Release\GAsplund_s_WynnPack_Manager.ManagerForm.resources
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\obj\Release\GAsplund_s_WynnPack_Manager.Properties.Resources.resources
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\obj\Release\GAsplund's WynnPack Manager.csproj.GenerateResource.Cache
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\obj\Release\GAsplund's WynnPack Manager.exe
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\obj\Release\GAsplund's WynnPack Manager.pdb
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\assets\background.png
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\bin\Release\assets\blank.png
+d:\users\gaspl_000\documents\visual studio 2017\Projects\GAspWPMngr\GAsplund's WynnPack Manager\obj\Release\GAsplund's WynnPack Manager.csprojResolveAssemblyReference.cache
