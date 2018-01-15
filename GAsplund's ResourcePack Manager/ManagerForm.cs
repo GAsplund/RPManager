@@ -204,6 +204,8 @@ namespace GAsplund_s_WynnPack_Manager
             if (packHasOneEdition)
             {
                 packFileName = (string)currentEditionsList["1"]["file_name"];
+                packDownload = (string)currentEditionsList["1"]["download"];
+                packMD5 = (string)currentEditionsList["1"]["md5"];
                 //PackEditionLabel.Visible = false;
                 PackEditionComboBox.Enabled = false;
             }

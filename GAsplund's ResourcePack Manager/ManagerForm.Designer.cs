@@ -289,7 +289,7 @@
             this.MaximumSize = new System.Drawing.Size(700, 470);
             this.MinimumSize = new System.Drawing.Size(700, 470);
             this.Name = "ManagerForm";
-            this.Text = "GAsplund\'s Resourcepack Manager [beta 0.1.2]";
+            this.Text = "GAsplund\'s Resourcepack Manager [beta 0.1.3]";
             this.Load += new System.EventHandler(this.ManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.packPreviewPictureBox)).EndInit();
             this.ResumeLayout(false);
