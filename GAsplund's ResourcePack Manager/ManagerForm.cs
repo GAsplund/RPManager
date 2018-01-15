@@ -75,6 +75,7 @@ namespace GAsplund_s_WynnPack_Manager
                     if (packSelectionListBox.SelectedItem != null) {
                         if (pastSelectedItem != packSelectionListBox.SelectedItem.ToString())
                         {
+                            packPreviewPictureBox.Image = null;
                             currentSelectedItemNumber = packSelectionListBox.Items.IndexOf(packSelectionListBox.SelectedItem.ToString());
                             currentSelectedItemNumber++;
                             updateEditionsList(JsonConvert.SerializeObject((object)currentPackList[currentSelectedItemNumber.ToString()]["editions"]));
@@ -102,7 +103,7 @@ namespace GAsplund_s_WynnPack_Manager
 
             } catch (Exception er)
             {
-                MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error has occurred while trying to get information from the selected (or unselected) pack. (" + er.Message + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 }
 
@@ -217,7 +218,7 @@ namespace GAsplund_s_WynnPack_Manager
                 PackEditionComboBox.Enabled = true;
             }
 
-            if (PackEditionComboBox.SelectedItem == null) { packStatusLabel.Text = "Pack Status: n/a"; installOrUninstallPackButton.Enabled = false; } else if (PackEditionComboBox.SelectedItem != null)
+            if (PackEditionComboBox.SelectedItem == null && packHasOneEdition == false) { packStatusLabel.Text = "Pack Status: n/a"; installOrUninstallPackButton.Enabled = false; } else if (PackEditionComboBox.SelectedItem != null || packHasOneEdition == true)
             {
                 if (FileManagement.CurrentPackIsInstalled(currentSelectedItemNumber, packFileName))
                 {

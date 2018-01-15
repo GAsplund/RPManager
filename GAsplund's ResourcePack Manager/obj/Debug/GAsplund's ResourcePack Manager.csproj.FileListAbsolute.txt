@@ -9,3 +9,4 @@ C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsps
 C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's ResourcePack Manager.csproj.GenerateResource.Cache
 C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's Resourcepack Manager.exe
 C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's Resourcepack Manager.pdb
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\Debug\GAsplund's ResourcePack Manager.csprojResolveAssemblyReference.cache

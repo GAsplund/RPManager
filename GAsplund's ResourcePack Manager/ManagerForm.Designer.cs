@@ -143,7 +143,7 @@
             // 
             this.currentPackLabel.AutoSize = true;
             this.currentPackLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.currentPackLabel.Location = new System.Drawing.Point(196, 7);
+            this.currentPackLabel.Location = new System.Drawing.Point(193, 7);
             this.currentPackLabel.Name = "currentPackLabel";
             this.currentPackLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.currentPackLabel.Size = new System.Drawing.Size(168, 25);
@@ -289,7 +289,7 @@
             this.MaximumSize = new System.Drawing.Size(700, 470);
             this.MinimumSize = new System.Drawing.Size(700, 470);
             this.Name = "ManagerForm";
-            this.Text = "GAsplund\'s Resourcepack Manager [beta 0.1.0]";
+            this.Text = "GAsplund\'s Resourcepack Manager [beta 0.1.2]";
             this.Load += new System.EventHandler(this.ManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.packPreviewPictureBox)).EndInit();
             this.ResumeLayout(false);
