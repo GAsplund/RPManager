@@ -96,20 +96,22 @@
             this.ThemeChooserComboBox.FormattingEnabled = true;
             this.ThemeChooserComboBox.Items.AddRange(new object[] {
             "None",
-            "WynnPack Background"});
+            "WynnPack Background",
+            "Dirt Background"});
             this.ThemeChooserComboBox.Location = new System.Drawing.Point(10, 149);
             this.ThemeChooserComboBox.Name = "ThemeChooserComboBox";
             this.ThemeChooserComboBox.Size = new System.Drawing.Size(133, 21);
             this.ThemeChooserComboBox.TabIndex = 25;
+            this.ThemeChooserComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeChooserComboBox_SelectedIndexChanged);
             // 
             // ThemeLabel
             // 
             this.ThemeLabel.AutoSize = true;
             this.ThemeLabel.Location = new System.Drawing.Point(9, 133);
             this.ThemeLabel.Name = "ThemeLabel";
-            this.ThemeLabel.Size = new System.Drawing.Size(126, 13);
+            this.ThemeLabel.Size = new System.Drawing.Size(196, 13);
             this.ThemeLabel.TabIndex = 26;
-            this.ThemeLabel.Text = "Theme (COMING SOON)";
+            this.ThemeLabel.Text = "Theme (NEXT RELEASE HOPEFULLY)";
             // 
             // OfficialVanillaRadioButton
             // 
@@ -176,6 +178,7 @@
             this.MaximizeBox = false;
             this.Name = "OptionsForm";
             this.Text = "Options";
+            this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

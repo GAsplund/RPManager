@@ -9,3 +9,6 @@ C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release
 C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release\GAsplund's ResourcePack Manager.csproj.GenerateResource.Cache
 C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release\GAsplund's Resourcepack Manager.exe
 C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release\GAsplund's Resourcepack Manager.pdb
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release\GAspsRPmngr.ErrorForm.resources
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release\GAsplund's ResourcePack Manager.csproj.CoreCompileInputs.cache
+C:\Users\gaspl\Desktop\RPManager\GAsplund's ResourcePack Manager\obj\x86\Release\GAsplund's ResourcePack Manager.csprojResolveAssemblyReference.cache

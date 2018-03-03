@@ -13,6 +13,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
+using GAspsRPmngr;
 
 namespace GAsplund_s_WynnPack_Manager
 {
@@ -69,16 +70,17 @@ namespace GAsplund_s_WynnPack_Manager
         {
             try
             {
-                if (currentPackList == null) { throw new System.InvalidOperationException("Pack List is null."); }
-                else
-                {
-                    if (packSelectionListBox.SelectedItem != null) {
-                        if (pastSelectedItem != packSelectionListBox.SelectedItem.ToString())
+                //  
+                if (currentPackList != null) {
+                    if (packSelectionListBox.SelectedItem != null)
+                    {
+                        if (pastSelectedItem != packSelectionListBox.SelectedItem.ToString()) // If the same pack was selected again, why go through all this crap once more?
                         {
                             packPreviewPictureBox.Image = null;
                             currentSelectedItemNumber = packSelectionListBox.Items.IndexOf(packSelectionListBox.SelectedItem.ToString());
                             currentSelectedItemNumber++;
                             updateEditionsList(JsonConvert.SerializeObject((object)currentPackList[currentSelectedItemNumber.ToString()]["editions"]));
+                            // Setting all the variables to their new value
                             packDescription = (string)currentPackList[currentSelectedItemNumber.ToString()]["description"];
                             packImage = (string)currentPackList[currentSelectedItemNumber.ToString()]["image_preview"];
                             string packResolutions = (string)currentPackList[currentSelectedItemNumber.ToString()]["resolutions"];
@@ -87,6 +89,7 @@ namespace GAsplund_s_WynnPack_Manager
                             packName = (string)currentPackList[currentSelectedItemNumber.ToString()]["name"];
                             packCreator = (string)currentPackList[currentSelectedItemNumber.ToString()]["creator"];
                             packResolutions = (string)currentPackList[currentSelectedItemNumber.ToString()]["resolutions"];
+                            // Setting all the form stuff to their new value
                             currentPackLabel.Text = packName;
                             packDescriptionTextBox.Text = packDescription;
                             packPreviewPictureBox.ImageLocation = packImage;
@@ -95,15 +98,22 @@ namespace GAsplund_s_WynnPack_Manager
                             ResolutionsLabel.Text = "Resolution(s): " + packResolutions;
                             creatorLabel.Text = "Created by " + packCreator;
                             PackEditionComboBox.Text = "";
-                            setApplyButton();
-                            pastSelectedItem = packSelectionListBox.SelectedItem.ToString();
+                            setApplyButton(); //Essentially checking which buttons need to be enabled or disabled.
+                            pastSelectedItem = packSelectionListBox.SelectedItem.ToString(); //Checked a new pack, no need to check it again
                         }
                     }
+
+                }
+                else //
+                {
+                    throw new System.ArgumentNullException("Pack List is null.");
                 }
 
             } catch (Exception er)
             {
-                MessageBox.Show("An error has occurred while trying to get information from the selected (or unselected) pack. (" + er.Message + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorForm form3 = new ErrorForm(er.Message,er.StackTrace, e.GetType().ToString());
+                form3.ShowDialog();
+
             }
 }
 
@@ -114,6 +124,8 @@ namespace GAsplund_s_WynnPack_Manager
 
         private void ManagerForm_Load(object sender, EventArgs e)
         {
+            // Me trying to play around with scaling (might happen sometime when I care more)
+
             //this.MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -123,43 +135,45 @@ namespace GAsplund_s_WynnPack_Manager
 
         private void currentPackLabel_Click(object sender, EventArgs e)
         {
-
+            // Why is this here?
         }
 
         public void updateWebList()
         {
-            if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 2)
+            if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 2) // Setting 2 = custom source
             {
                 packSource = GAspsRPmngr.Properties.Settings.Default.CustomSource;
-            } else if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 0)
+            } else if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 0) // Setting 0 = Wynn
             {
-                packSource = "https://gasplund.github.io/downloads/packlist_wynn.json";
+                packSource = "https://gasplund.github.io/downloads/packlist_wynn.json";  // Wynn packs JSON direct ("official" source)
             }
-            else if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 1)
+            else if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 1) // Setting 1 = Vanilla
             {
-                packSource = "https://gasplund.github.io/downloads/packlist_vanilla.json";
+                packSource = "https://gasplund.github.io/downloads/packlist_vanilla.json";  // Vanilla packs JSON ("official" source)
             }
 
             TimeSpan timeoutTimespan = new TimeSpan(0, 0, 10);
             WebClient httpClient = new WebClient();
-            //httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0)");
-            //httpClient.Timeout = timeoutTimespan;
             try
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 string clientResponse = httpClient.DownloadString(packSource);
-                //var clientResponse = await httpClient.GetAsync("http://gasplund.github.io/downloads/packlist.txt");
                 string updateListList = clientResponse;
                 updateList(updateListList);
             } catch (System.ArgumentException e)
             {
-                MessageBox.Show("Your custom link is invalid! (" + e.Message + ")", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorForm form3 = new ErrorForm("Your custom link is invalid!", e.StackTrace, e.GetType().ToString());
+                // Get your shit together yo
+                form3.ShowDialog();
             } catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorForm form3 = new ErrorForm(e.Message, e.StackTrace, e.GetType().ToString());
+                form3.ShowDialog();
             }
         }
 
         public void updateList(string list)
+        // Updating the pack list from the downloaded JSON
         {
             packSelectionListBox.Items.Clear();
             dynamic packListJSON = JObject.Parse(list);
@@ -177,6 +191,7 @@ namespace GAsplund_s_WynnPack_Manager
         }
 
         public void updateEditionsList(string list)
+        // Could be more compact, just cba. Otherwise this shit is pretty self explanatory.
         {
             PackEditionComboBox.Items.Clear();
             JObject jObj = (JObject)JsonConvert.DeserializeObject(list);
@@ -194,6 +209,8 @@ namespace GAsplund_s_WynnPack_Manager
         }
 
         public static void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e)
+        // Unfinished shit. I need to get to this sometime but I'm to lazy to learn multithreading.
+        //Feel free to create a pull request to make this work.
         {
             Console.WriteLine(e.ProgressPercentage);
             //statusProgressBar.Value = e.ProgressPercentage;
@@ -201,7 +218,17 @@ namespace GAsplund_s_WynnPack_Manager
 
         private void setApplyButton()
         {
+            if (PackEditionComboBox.SelectedIndex == -1 && packHasNoEditions == false) 
+            // Disable all buttons if a new pack with editions is selected
+            {
+                installOrUninstallPackButton.Enabled = false;
+                forceUpdatePackButton.Enabled = false;
+                uninstallPackButton.Enabled = false;
+            }
+
             if (packHasOneEdition)
+            // If the selected pack has only one edition, the pack edition selection isn't needed and will be disabled and
+            // the pack hash, file name and download for the first edition will be used. Simple enough.
             {
                 packFileName = (string)currentEditionsList["1"]["file_name"];
                 packDownload = (string)currentEditionsList["1"]["download"];
@@ -210,22 +237,27 @@ namespace GAsplund_s_WynnPack_Manager
                 PackEditionComboBox.Enabled = false;
             }
             else if (packHasNoEditions)
+            // Self explanatory
             {
                 //PackEditionLabel.Visible = false;
                 PackEditionComboBox.Enabled = false;
             }
             else
+            // Just in case
             {
                 //PackEditionLabel.Visible = true;
                 PackEditionComboBox.Enabled = true;
             }
 
             if (PackEditionComboBox.SelectedItem == null && packHasOneEdition == false) { packStatusLabel.Text = "Pack Status: n/a"; installOrUninstallPackButton.Enabled = false; } else if (PackEditionComboBox.SelectedItem != null || packHasOneEdition == true)
+            // Checking if pack has no edition edition selected or if nothing is selected, and will make pack status n/a if returned true.
             {
                 if (FileManagement.CurrentPackIsInstalled(currentSelectedItemNumber, packFileName))
+                // Checking if the selected pack is installed
                 {
                     packIsInstalled = true;
                     if (FileManagement.CurrentPackIsOutdated(currentSelectedItemNumber, packFileName, packMD5))
+                    // Checking if the selected pack is outdated or damaged/corrupt
                     {
                         packIsOutdated = true;
                         installOrUninstallPackButton.Enabled = true;
@@ -235,6 +267,7 @@ namespace GAsplund_s_WynnPack_Manager
                         packStatusLabel.Text = "Pack Status: Outdated or damaged";
                     }
                     else
+                    // If it isn't outdated, it's installed and working fine
                     {
                         packIsInstalled = true;
                         packIsOutdated = false;
@@ -246,6 +279,7 @@ namespace GAsplund_s_WynnPack_Manager
                     }
                 }
                 else
+                // CurrentPackIsInstalled returned false, therefore it's is not installed
                 {
                     packIsInstalled = false;
                     packIsOutdated = false;

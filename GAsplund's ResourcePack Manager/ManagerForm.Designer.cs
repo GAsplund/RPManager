@@ -50,6 +50,7 @@
             this.ResolutionsLabel = new System.Windows.Forms.Label();
             this.OptionsButton = new System.Windows.Forms.Button();
             this.ImageToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.packPreviewPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +81,7 @@
             // 
             this.selectPackLabel.AutoSize = true;
             this.selectPackLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.selectPackLabel.Location = new System.Drawing.Point(13, 6);
+            this.selectPackLabel.Location = new System.Drawing.Point(10, 6);
             this.selectPackLabel.Name = "selectPackLabel";
             this.selectPackLabel.Size = new System.Drawing.Size(101, 17);
             this.selectPackLabel.TabIndex = 5;
@@ -260,12 +261,23 @@
             this.OptionsButton.UseVisualStyleBackColor = true;
             this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label1.Location = new System.Drawing.Point(628, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "beta0.1.4";
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(684, 431);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.ResolutionsLabel);
             this.Controls.Add(this.creatorLabel);
@@ -289,7 +301,7 @@
             this.MaximumSize = new System.Drawing.Size(700, 470);
             this.MinimumSize = new System.Drawing.Size(700, 470);
             this.Name = "ManagerForm";
-            this.Text = "GAsplund\'s Resourcepack Manager [beta 0.1.3]";
+            this.Text = "GAsplund\'s Resourcepack Manager";
             this.Load += new System.EventHandler(this.ManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.packPreviewPictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -318,6 +330,7 @@
         private System.Windows.Forms.Label ResolutionsLabel;
         private System.Windows.Forms.Button OptionsButton;
         private System.Windows.Forms.ToolTip ImageToolTip;
+        private System.Windows.Forms.Label label1;
     }
 }
 

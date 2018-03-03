@@ -80,5 +80,15 @@ namespace GAsplund_s_WynnPack_Manager
             else
             { customSourceTextBox.Enabled = false; customSourceTextBox.Clear(); }
         }
+
+        private void ThemeChooserComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OptionsForm_Load(object sender, EventArgs e)
+        {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+        }
     }
 }
