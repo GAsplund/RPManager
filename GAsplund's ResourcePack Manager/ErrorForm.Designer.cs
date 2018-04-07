@@ -63,7 +63,7 @@
             this.ExceptionInfoTextBox.Name = "ExceptionInfoTextBox";
             this.ExceptionInfoTextBox.ReadOnly = true;
             this.ExceptionInfoTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ExceptionInfoTextBox.Size = new System.Drawing.Size(372, 95);
+            this.ExceptionInfoTextBox.Size = new System.Drawing.Size(372, 239);
             this.ExceptionInfoTextBox.TabIndex = 15;
             // 
             // ExceptionLabel
@@ -77,21 +77,21 @@
             // 
             // QuitButton
             // 
-            this.QuitButton.Location = new System.Drawing.Point(290, 174);
+            this.QuitButton.Location = new System.Drawing.Point(265, 318);
             this.QuitButton.Name = "QuitButton";
-            this.QuitButton.Size = new System.Drawing.Size(94, 30);
+            this.QuitButton.Size = new System.Drawing.Size(119, 35);
             this.QuitButton.TabIndex = 17;
-            this.QuitButton.Text = "Quit Application";
+            this.QuitButton.Text = "Quit Application\r\n(Recommended)";
             this.QuitButton.UseVisualStyleBackColor = true;
             this.QuitButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // ContinueButton
             // 
-            this.ContinueButton.Location = new System.Drawing.Point(209, 174);
+            this.ContinueButton.Location = new System.Drawing.Point(140, 318);
             this.ContinueButton.Name = "ContinueButton";
-            this.ContinueButton.Size = new System.Drawing.Size(75, 30);
+            this.ContinueButton.Size = new System.Drawing.Size(119, 35);
             this.ContinueButton.TabIndex = 18;
-            this.ContinueButton.Text = "Continue";
+            this.ContinueButton.Text = "Ignore Error\r\n(Not Recommended)";
             this.ContinueButton.UseVisualStyleBackColor = true;
             this.ContinueButton.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -99,7 +99,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.Location = new System.Drawing.Point(12, 188);
+            this.label1.Location = new System.Drawing.Point(216, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(178, 13);
             this.label1.TabIndex = 19;
@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 216);
+            this.ClientSize = new System.Drawing.Size(396, 364);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ContinueButton);
             this.Controls.Add(this.QuitButton);
@@ -118,7 +118,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ExceptionThrownLabel);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(412, 255);
+            this.MaximumSize = new System.Drawing.Size(412, 500);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(412, 255);
             this.Name = "ErrorForm";

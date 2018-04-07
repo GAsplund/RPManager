@@ -39,6 +39,9 @@
             this.OfficialWynnRadioButton = new System.Windows.Forms.RadioButton();
             this.CustomSourceRadioButton = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.CleanCacheButton = new System.Windows.Forms.Button();
+            this.CacheSizeLabel = new System.Windows.Forms.Label();
+            this.EnableDebugCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // customSourceTextBox
@@ -51,7 +54,7 @@
             // 
             // ApplyButton
             // 
-            this.ApplyButton.Location = new System.Drawing.Point(207, 226);
+            this.ApplyButton.Location = new System.Drawing.Point(207, 250);
             this.ApplyButton.Name = "ApplyButton";
             this.ApplyButton.Size = new System.Drawing.Size(75, 23);
             this.ApplyButton.TabIndex = 21;
@@ -61,7 +64,7 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(126, 226);
+            this.CancelButton.Location = new System.Drawing.Point(126, 250);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 22;
@@ -71,7 +74,7 @@
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(45, 226);
+            this.OKButton.Location = new System.Drawing.Point(45, 250);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 23;
@@ -84,7 +87,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.Location = new System.Drawing.Point(12, 208);
+            this.label1.Location = new System.Drawing.Point(12, 232);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(272, 15);
             this.label1.TabIndex = 24;
@@ -92,15 +95,15 @@
             // 
             // ThemeChooserComboBox
             // 
-            this.ThemeChooserComboBox.Enabled = false;
+            this.ThemeChooserComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ThemeChooserComboBox.FormattingEnabled = true;
             this.ThemeChooserComboBox.Items.AddRange(new object[] {
-            "None",
+            "None (White Background)",
             "WynnPack Background",
             "Dirt Background"});
             this.ThemeChooserComboBox.Location = new System.Drawing.Point(10, 149);
             this.ThemeChooserComboBox.Name = "ThemeChooserComboBox";
-            this.ThemeChooserComboBox.Size = new System.Drawing.Size(133, 21);
+            this.ThemeChooserComboBox.Size = new System.Drawing.Size(149, 21);
             this.ThemeChooserComboBox.TabIndex = 25;
             this.ThemeChooserComboBox.SelectedIndexChanged += new System.EventHandler(this.ThemeChooserComboBox_SelectedIndexChanged);
             // 
@@ -109,9 +112,9 @@
             this.ThemeLabel.AutoSize = true;
             this.ThemeLabel.Location = new System.Drawing.Point(9, 133);
             this.ThemeLabel.Name = "ThemeLabel";
-            this.ThemeLabel.Size = new System.Drawing.Size(196, 13);
+            this.ThemeLabel.Size = new System.Drawing.Size(28, 13);
             this.ThemeLabel.TabIndex = 26;
-            this.ThemeLabel.Text = "Theme (NEXT RELEASE HOPEFULLY)";
+            this.ThemeLabel.Text = "Skin";
             // 
             // OfficialVanillaRadioButton
             // 
@@ -158,12 +161,45 @@
             this.label2.TabIndex = 30;
             this.label2.Text = "Source Selection:";
             // 
+            // CleanCacheButton
+            // 
+            this.CleanCacheButton.Location = new System.Drawing.Point(10, 178);
+            this.CleanCacheButton.Name = "CleanCacheButton";
+            this.CleanCacheButton.Size = new System.Drawing.Size(88, 33);
+            this.CleanCacheButton.TabIndex = 31;
+            this.CleanCacheButton.Text = "Delete Cache";
+            this.CleanCacheButton.UseVisualStyleBackColor = true;
+            this.CleanCacheButton.Click += new System.EventHandler(this.CleanCacheButton_Click);
+            // 
+            // CacheSizeLabel
+            // 
+            this.CacheSizeLabel.AutoSize = true;
+            this.CacheSizeLabel.Location = new System.Drawing.Point(9, 211);
+            this.CacheSizeLabel.Name = "CacheSizeLabel";
+            this.CacheSizeLabel.Size = new System.Drawing.Size(98, 13);
+            this.CacheSizeLabel.TabIndex = 32;
+            this.CacheSizeLabel.Text = "Size: Determining...";
+            // 
+            // EnableDebugCheckBox
+            // 
+            this.EnableDebugCheckBox.AutoSize = true;
+            this.EnableDebugCheckBox.Location = new System.Drawing.Point(192, 9);
+            this.EnableDebugCheckBox.Name = "EnableDebugCheckBox";
+            this.EnableDebugCheckBox.Size = new System.Drawing.Size(94, 17);
+            this.EnableDebugCheckBox.TabIndex = 33;
+            this.EnableDebugCheckBox.Text = "Enable Debug";
+            this.EnableDebugCheckBox.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
+            this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 261);
+            this.ClientSize = new System.Drawing.Size(294, 284);
             this.ControlBox = false;
+            this.Controls.Add(this.EnableDebugCheckBox);
+            this.Controls.Add(this.CacheSizeLabel);
+            this.Controls.Add(this.CleanCacheButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.CustomSourceRadioButton);
             this.Controls.Add(this.OfficialWynnRadioButton);
@@ -196,5 +232,8 @@
         private System.Windows.Forms.RadioButton OfficialWynnRadioButton;
         private System.Windows.Forms.RadioButton CustomSourceRadioButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button CleanCacheButton;
+        private System.Windows.Forms.Label CacheSizeLabel;
+        private System.Windows.Forms.CheckBox EnableDebugCheckBox;
     }
 }

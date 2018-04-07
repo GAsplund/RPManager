@@ -21,7 +21,6 @@ namespace GAsplund_s_WynnPack_Manager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ManagerForm form1 = new ManagerForm();
-            var test = form1;
             Application.Run(form1);
 
 

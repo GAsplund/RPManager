@@ -80,6 +80,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -147,7 +149,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dirt_top.png" />
+    <None Include="Resources\dirt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wynn_dirt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\blank.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
