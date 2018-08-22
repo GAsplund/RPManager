@@ -286,11 +286,11 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.Location = new System.Drawing.Point(587, 32);
+            this.label1.Location = new System.Drawing.Point(596, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 13);
+            this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 24;
-            this.label1.Text = "ver1.0-prerelease";
+            this.label1.Text = "ver1.0-devbuild";
             // 
             // PackSettingsCheckedListBox
             // 
@@ -375,13 +375,9 @@
         public System.Windows.Forms.Button forceUpdatePackButton;
         public System.Windows.Forms.Label packStatusLabel;
         public System.Windows.Forms.Label currentPackLabel;
-        private System.Windows.Forms.ListBox packSelectionListBox;
-        private System.Windows.Forms.ComboBox PackEditionComboBox;
         private System.Windows.Forms.Button OptionsButton;
         private System.Windows.Forms.ToolTip ImageToolTip;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckedListBox PackSettingsCheckedListBox;
-        private System.Windows.Forms.Button ApplySettingsButton;
         public System.Windows.Forms.Label selectPackLabel;
         public System.Windows.Forms.Label packCompatibilityLabel;
         public System.Windows.Forms.Label packVersionLabel;
@@ -389,6 +385,10 @@
         public System.Windows.Forms.Label creatorLabel;
         public System.Windows.Forms.Label ResolutionsLabel;
         public System.Windows.Forms.Label SettingsLabel;
+        public System.Windows.Forms.ListBox packSelectionListBox;
+        public System.Windows.Forms.CheckedListBox PackSettingsCheckedListBox;
+        public System.Windows.Forms.ComboBox PackEditionComboBox;
+        public System.Windows.Forms.Button ApplySettingsButton;
     }
 }
 

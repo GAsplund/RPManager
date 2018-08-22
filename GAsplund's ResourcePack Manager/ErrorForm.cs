@@ -12,11 +12,11 @@ namespace GAspsRPmngr
 {
     public partial class ErrorForm : Form
     {
-        public ErrorForm(string Error, string StackTrace, string ExceptionType)
+        public ErrorForm(string error, string stacktrace, string exceptiontype)
         {
             InitializeComponent();
-            ExceptionLabel.Text = ExceptionType;
-            string FullInfo = "---------- An exception was thrown: ----------@" + ExceptionType + "@@---------- Error: ----------@" + Error +"@@---------- Stacktrace: ----------@"+ StackTrace;
+            ExceptionLabel.Text = exceptiontype;
+            string FullInfo = "---------- An exception was thrown: ----------@" + exceptiontype + "@@---------- Error: ----------@" + error +"@@---------- Stacktrace: ----------@"+ stacktrace;
             FullInfo = FullInfo.Replace("@", System.Environment.NewLine);
             ExceptionInfoTextBox.Text = FullInfo;
             this.ActiveControl = QuitButton;
@@ -40,11 +40,6 @@ namespace GAspsRPmngr
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

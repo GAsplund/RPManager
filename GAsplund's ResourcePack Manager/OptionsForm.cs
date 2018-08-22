@@ -50,7 +50,7 @@ namespace GAsplund_s_WynnPack_Manager
             GAspsRPmngr.Properties.Settings.Default.BackgroundTheme = ThemeChooserComboBox.Items.IndexOf(ThemeChooserComboBox.SelectedItem.ToString());
             GAspsRPmngr.Properties.Settings.Default.Save();
             GAspsRPmngr.Properties.Settings.Default.Upgrade();
-            main.updateWebList();
+            main._updating.updateWebList(main, main.Pack);
             updateThemes();
 
         }

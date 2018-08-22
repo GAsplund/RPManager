@@ -19,32 +19,22 @@ namespace GAsplund_s_WynnPack_Manager
 {
     public partial class ManagerForm : Form
     {
-        public dynamic currentPackList;
-        public dynamic currentEditionsList;
-        public dynamic currentSettings;
-        int currentSelectedItemNumber;
-        int currentSelectedEditionNumber;
-        int settingsCount;
-        bool packIsInstalled;
-        bool packIsOutdated;
-        bool packHasOneEdition;
-        bool packHasNoEditions;
-        bool packHasNoSettings;
-        bool ErrorOccurredWhileTryingToApplySettingDisabled;
-        string packCreator;
-        string packDescription;
-        string packImage;
-        string packVersion;
-        string packName;
-        string packFileName;
-        string packMD5;
-        string packResolutions;
-        string packDownload;
-        string pastSelectedItem;
-        string pastSelectedEdition;
-        string packSource;
-        string packCompatibility;
-        dynamic SettingsInfo;
+        public int currentSelectedItemNumber;
+        public int currentSelectedEditionNumber;
+        public bool ErrorOccurredWhileTryingToApplySettingDisabled;
+        public string pastSelectedItem;
+        public string pastSelectedEdition;
+
+        public int CurrentSelectedItemNumber { get => currentSelectedItemNumber; set => currentSelectedItemNumber = value; }
+        public int CurrentSelectedEditionNumber { get => currentSelectedEditionNumber; set => currentSelectedEditionNumber = value; }
+
+        public PackMetadata Pack = new PackMetadata();
+        public Updating _updating = new Updating();
+
+        private dynamic currentPackList;
+        private dynamic currentEditionsList;
+        private dynamic currentSettings;
+
         Exception ErrorOutsideOfCatch;
         JObject SetjObj;
         private delegate void EnableDelegate(string enable);
@@ -53,17 +43,22 @@ namespace GAsplund_s_WynnPack_Manager
         public ManagerForm()
         {
             InitializeComponent();
-            updateWebList();
+            _updating.updateWebList(this, Pack);
             updateThemes();
         }
         private Updating formm;
+
+        public dynamic CurrentPackList { get => currentPackList; set => currentPackList = value; }
+        public dynamic CurrentEditionsList { get => currentEditionsList; set => currentEditionsList = value; }
+        public dynamic CurrentSettings { get => currentSettings; set => currentSettings = value; }
+
         public ManagerForm(Updating f)
         {
             this.formm = f;
         }
         private void fetchPacksButton_Click(object sender, EventArgs e)
         {
-            updateWebList();
+            _updating.updateWebList(this, Pack);
             updateThemes();
         }
 
@@ -77,84 +72,7 @@ namespace GAsplund_s_WynnPack_Manager
 
         public void packSelectionListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                //  
-                if (currentPackList != null) {
-                    if (packSelectionListBox.SelectedItem != null)
-                    {
-                        if (pastSelectedItem != packSelectionListBox.SelectedItem.ToString()) // If the same pack was selected again, why go through all this crap once more?
-                        {
-                            PackSettingsCheckedListBox.Items.Clear(); // Clear the settings SelectedListBox
-                            packPreviewPictureBox.Image = GAspsRPmngr.Properties.Resources.blank; // Clear the pack preview Picture box.
-                            packStatusLabel.Text = "Pack Status: Loading...";
-
-                            // some stuff
-
-                            currentSelectedItemNumber = packSelectionListBox.Items.IndexOf(packSelectionListBox.SelectedItem.ToString());
-                            currentSelectedItemNumber++;
-                            updateEditionsList(JsonConvert.SerializeObject((object)currentPackList[currentSelectedItemNumber.ToString()]["editions"]));
-
-                            // Setting all the variables to their new value
-                            if ((bool)currentPackList[currentSelectedItemNumber.ToString()]["external_source"])
-                            {        // Retreive data from external JSON instead of from current JSON
-                                packDescription =   (string)currentPackList[currentSelectedItemNumber.ToString()]["description"];
-                                packImage =         (string)currentPackList[currentSelectedItemNumber.ToString()]["image_preview"];
-                                packResolutions =   (string)currentPackList[currentSelectedItemNumber.ToString()]["resolutions"];
-                                packCompatibility = (string)currentPackList[currentSelectedItemNumber.ToString()]["compatibility"];
-                                packVersion =       (string)currentPackList[currentSelectedItemNumber.ToString()]["latest_version"];
-                            } else { // Retreive data from current JSON instead of from external JSON
-                                packDescription =   (string)currentPackList[currentSelectedItemNumber.ToString()]["description"];
-                                packImage =         (string)currentPackList[currentSelectedItemNumber.ToString()]["image_preview"];
-                                packResolutions =   (string)currentPackList[currentSelectedItemNumber.ToString()]["resolutions"];
-                                packCompatibility = (string)currentPackList[currentSelectedItemNumber.ToString()]["compatibility"];
-                                packVersion =       (string)currentPackList[currentSelectedItemNumber.ToString()]["latest_version"];
-                            }
-
-                            // Retreive data from current JSON that doesn't need to be changed and therefore not from external JSON
-
-                            packName =          (string)currentPackList[currentSelectedItemNumber.ToString()]["name"];
-                            packCreator =       (string)currentPackList[currentSelectedItemNumber.ToString()]["creator"];
-                            packResolutions =   (string)currentPackList[currentSelectedItemNumber.ToString()]["resolutions"];
-
-                            // Setting all the not label stuff to their new value
-
-                            packDescriptionTextBox.Text = packDescription;
-                            packPreviewPictureBox.ImageLocation = packImage;
-                            PackEditionComboBox.Text = "";
-
-                            // Setting all the labels to their new value
-
-                            packVersionLabel.Text =       "Latest Version: " +  packVersion;
-                            packCompatibilityLabel.Text = "MC Versions: " +     packCompatibility;
-                            currentPackLabel.Text =                             packName;
-                            ResolutionsLabel.Text =       "Resolution(s): " +   packResolutions;
-                            creatorLabel.Text =           "Created by " +       packCreator;
-
-                            setApplyButton(); // Essentially checking which buttons need to be enabled or disabled.
-                        }
-                    }
-
-                }
-                else //
-                {
-                    throw new System.ArgumentNullException("Pack List is null.");
-                }
-
-            } catch (Exception er)
-            {
-                ErrorForm form3 = new ErrorForm(er.Message,er.StackTrace, e.GetType().ToString());
-                form3.ShowDialog();
-
-            }
-            if (packHasOneEdition && pastSelectedItem != packSelectionListBox.SelectedItem.ToString() || packHasNoEditions && pastSelectedItem != packSelectionListBox.SelectedItem.ToString())
-                {
-                    currentSelectedEditionNumber = 1;
-                    PackSettingsCheckedListBox.Enabled = true;
-                    updateSettingsList(JsonConvert.SerializeObject((object)currentPackList[currentSelectedItemNumber.ToString()]["settings"]));
-                }
-            // If the selected pack has no selectable editions, check here for settings
-            pastSelectedItem = packSelectionListBox.SelectedItem.ToString(); // We just checked a new pack, no need to check it directly again
+            _updating.UpdateVisualAndPackData(this, Pack);
         }
     
 
@@ -192,48 +110,13 @@ namespace GAsplund_s_WynnPack_Manager
             return clientResponse;
         }
 
-
-        public void updateWebList()
-        {
-            if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 2) // Setting 2 = custom source
-            {
-                packSource = GAspsRPmngr.Properties.Settings.Default.CustomSource;
-            } else if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 0) // Setting 0 = Wynn
-            {
-                packSource = "https://gasplund.github.io/downloads/packlist_wynn.json";  // Wynn packs JSON direct ("official" source)
-            }
-            else if (GAspsRPmngr.Properties.Settings.Default.SourceSelection == 1) // Setting 1 = Vanilla
-            {
-                packSource = "https://gasplund.github.io/downloads/packlist_vanilla.json";  // Vanilla packs JSON ("official" source)
-            }
-
-            TimeSpan timeoutTimespan = new TimeSpan(0, 0, 10);
-            WebClient httpClient = new WebClient();
-            try
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                string clientResponse = httpClient.DownloadString(packSource);
-                string updateListList = clientResponse;
-                updateList(updateListList);
-            } catch (System.ArgumentException e)
-            {
-                ErrorForm form3 = new ErrorForm("Your custom link is invalid or broken!", e.StackTrace, e.GetType().ToString());
-                // Get your shit together yo
-                form3.ShowDialog();
-            } catch (Exception e)
-            {
-                ErrorForm form3 = new ErrorForm(e.Message, e.StackTrace, e.GetType().ToString());
-                form3.ShowDialog();
-            }
-        }
-
         public void updateList(string list)
         // Updating the pack list from the downloaded JSON
         {
             packSelectionListBox.Items.Clear();
             JObject jObj = (JObject)JsonConvert.DeserializeObject(list);
             dynamic info = JObject.Parse(list);
-            currentPackList = info;
+            CurrentPackList = info;
             int objCount = jObj.Count;
             for (int i = 1; i <= objCount; i++)
             {
@@ -246,7 +129,7 @@ namespace GAsplund_s_WynnPack_Manager
                 }
             }
 
-            for (int i = 1; i <= objCount; i++)
+            foreach (int i in Enumerable.Range(1, objCount))
             {
                 string packTitle = (string)info[i.ToString()]["name"];
                 packSelectionListBox.Items.Add(packTitle.ToString());
@@ -269,10 +152,10 @@ namespace GAsplund_s_WynnPack_Manager
             PackEditionComboBox.Items.Clear();
             JObject jObj = (JObject)JsonConvert.DeserializeObject(list);
             dynamic info = JObject.Parse(list);
-            currentEditionsList = info;
+            CurrentEditionsList = info;
             int objCount = jObj.Count;
-            if (objCount == 0) { packHasNoEditions = true; } else if (objCount == 1) { packHasOneEdition = true; } else { packHasNoEditions = false; packHasOneEdition = false; }
-            for (int i = 1; i <= objCount; i++)
+            if (objCount == 0) { Pack.HasNoEditions = true; } else if (objCount == 1) { Pack.HasOneEdition = true; } else { Pack.HasNoEditions = false; Pack.HasOneEdition = false; }
+            foreach (int i in Enumerable.Range(1, objCount))
             {
                 string EditionName = (string)info[i.ToString()]["name"];
                 PackEditionComboBox.Items.Add(EditionName.ToString());
@@ -287,28 +170,28 @@ namespace GAsplund_s_WynnPack_Manager
                 if (settings != "null")
                 {
                     SetjObj = (JObject)JsonConvert.DeserializeObject(settings);
-                    SettingsInfo = JObject.Parse(settings);
-                    currentSettings = SettingsInfo;
-                    settingsCount = SetjObj.Count;
+                    Pack.SettingsInfo = JObject.Parse(settings);
+                    CurrentSettings = Pack.SettingsInfo;
+                    Pack.SettingsCount = SetjObj.Count;
                 } else
                 {
-                    settingsCount = 0;
-                    packHasNoSettings = true;
+                    Pack.SettingsCount = 0;
+                    Pack.HasNoSettings = true;
                 }
-            for (int i = 1; i <= settingsCount; i++)
+            foreach (int i in Enumerable.Range(1, Pack.SettingsCount))
                 {
-                    JArray settingEditions = (JArray)currentSettings[i.ToString()]["edition"];
+                    JArray settingEditions = (JArray)CurrentSettings[i.ToString()]["edition"];
                     
-                    if ( DoesThisJArrayContain(settingEditions, currentSelectedEditionNumber) )
+                    if ( DoesThisJArrayContain(settingEditions, CurrentSelectedEditionNumber) )
                     {
-                        string EditionName = (string)SettingsInfo[i.ToString()]["name"];
+                        string EditionName = (string)Pack.SettingsInfo[i.ToString()]["name"];
                         PackSettingsCheckedListBox.Items.Add(EditionName.ToString());
-                        packHasNoSettings = false;
-                        Console.WriteLine("Added Setting \"" + EditionName + "\" for i = " + i);
+                        Pack.HasNoSettings = false;
+                        Console.WriteLine("Added Setting " + i + ": " + EditionName);
                     }
                 }
-            PackSettingsCheckedListBox.Enabled = !packHasNoSettings && packIsInstalled;
-            ApplySettingsButton.Enabled = !packHasNoSettings && packIsInstalled;
+            PackSettingsCheckedListBox.Enabled = !Pack.HasNoSettings && Pack.IsInstalled;
+            ApplySettingsButton.Enabled = !Pack.HasNoSettings && Pack.IsInstalled;
                 
         }
 
@@ -327,117 +210,41 @@ namespace GAsplund_s_WynnPack_Manager
         private int LookForSetting(string SettingName)
         {
             int Success = 1;
-            for (int i = 1; i <= (settingsCount); i++)
+            for (int i = 1; i <= (Pack.SettingsCount); i++)
             {
-                if((string)SettingsInfo[i.ToString()]["name"] == SettingName) { Success = i; return i; }
+                if((string)Pack.SettingsInfo[i.ToString()]["name"] == SettingName) { Success = i; return i; }
             }
             return Success;
         }
 
 
-        private void setApplyButton()
-        {
-            if (PackEditionComboBox.SelectedIndex == -1 && packHasNoEditions == false) 
-            // Disable all buttons if a new pack with editions is selected
-            {
-                installOrUninstallPackButton.Enabled = false;
-                forceUpdatePackButton.Enabled = false;
-                uninstallPackButton.Enabled = false;
-            }
-
-            if (packHasOneEdition)
-            // If the selected pack has only one edition, the pack edition selection isn't needed and will be disabled and
-            // the pack hash, file name and download for the first edition will be used. Simple enough.
-            {
-                packFileName = (string)currentEditionsList["1"]["file_name"];
-                packDownload = (string)currentEditionsList["1"]["download"];
-                packMD5 = (string)currentEditionsList["1"]["md5"];
-                //PackEditionLabel.Visible = false;
-                PackEditionComboBox.Enabled = false;
-            }
-            else if (packHasNoEditions)
-            // Self explanatory
-            {
-                //PackEditionLabel.Visible = false;
-                PackEditionComboBox.Enabled = false;
-            }
-            else
-            // Just in case
-            {
-                //PackEditionLabel.Visible = true;
-                PackEditionComboBox.Enabled = true;
-            }
-
-            if (PackEditionComboBox.SelectedItem == null && packHasOneEdition == false) { packStatusLabel.Text = "Pack Status: Select an edition!"; installOrUninstallPackButton.Enabled = false; } else if (PackEditionComboBox.SelectedItem != null || packHasOneEdition == true)
-            // Checking if pack has no edition edition selected or if nothing is selected, and will make pack status n/a if returned true.
-            {
-                if (FileManagement.CurrentPackIsInstalled(currentSelectedItemNumber, packFileName))
-                // Checking if the selected pack is installed
-                {
-                    packIsInstalled = true;
-                    if (FileManagement.CurrentPackIsOutdated(currentSelectedItemNumber, packFileName, packMD5))
-                    // Checking if the selected pack is outdated or damaged/corrupt
-                    {
-                        packIsOutdated = true;
-                        installOrUninstallPackButton.Enabled = true;
-                        uninstallPackButton.Enabled = true;
-                        forceUpdatePackButton.Enabled = true;
-                        installOrUninstallPackButton.Text = "Update Pack";
-                        packStatusLabel.Text = "Pack Status: Outdated or damaged";
-                    }
-                    else
-                    // If it isn't outdated, it's installed and working fine
-                    {
-                        packIsInstalled = true;
-                        packIsOutdated = false;
-                        installOrUninstallPackButton.Enabled = false;
-                        uninstallPackButton.Enabled = true;
-                        forceUpdatePackButton.Enabled = true;
-                        installOrUninstallPackButton.Text = "Install Pack";
-                        packStatusLabel.Text = "Pack Status: Installed";
-                    }
-                }
-                else
-                // CurrentPackIsInstalled returned false, therefore it's is not installed
-                {
-                    packIsInstalled = false;
-                    packIsOutdated = false;
-                    installOrUninstallPackButton.Enabled = true;
-                    uninstallPackButton.Enabled = false;
-                    forceUpdatePackButton.Enabled = false;
-                    installOrUninstallPackButton.Text = "Install Pack";
-                    packStatusLabel.Text = "Pack Status: Not Installed";
-                }
-            }
-            PackSettingsCheckedListBox.Enabled = !packHasNoSettings && packIsInstalled;
-            ApplySettingsButton.Enabled = !packHasNoSettings && packIsInstalled;
-        }
+        
 
         private async void installOrUninstallPackButton_Click(object sender, EventArgs e)
         {
             installOrUninstallPackButton.Enabled = false;
-            if (packIsInstalled)
+            if (Pack.IsInstalled)
             {
-                if (packIsOutdated)
+                if (Pack.IsOutdated)
                 {
                     packStatusLabel.Text = "Pack Status: Downloading...";
-                    await FileManagement.downloadPack(packDownload, packFileName);
+                    await FileManagement.downloadPack(Pack.Download, Pack.FileName);
                 }
             }
             else
             {
                 packStatusLabel.Text = "Pack Status: Downloading...";
-                await FileManagement.downloadPack(packDownload, packFileName);
+                await FileManagement.downloadPack(Pack.Download, Pack.FileName);
             }
 
-            setApplyButton();
+            _updating.UpdateVisualAndPackData(this, Pack);
         }
 
         private void uninstallPackButton_Click(object sender, EventArgs e)
         {
             uninstallPackButton.Enabled = false;
-            FileManagement.removePack(packFileName);
-            setApplyButton();
+            FileManagement.removePack(Pack.FileName);
+            _updating.UpdateVisualAndPackData(this, Pack);
         }
 
         private void setAllLabelsColor(Color color)
@@ -457,26 +264,26 @@ namespace GAsplund_s_WynnPack_Manager
         private async void forceUpdatePackButton_Click(object sender, EventArgs e)
         {
             packStatusLabel.Text = "Pack Status: Downloading...";
-            await FileManagement.downloadPack(packDownload, packFileName);
-            setApplyButton();
+            await FileManagement.downloadPack(Pack.Download, Pack.FileName);
+            _updating.UpdateVisualAndPackData(this, Pack);
         }
 
         private void PackEditionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             packStatusLabel.Text = "Pack Status: Checking...";
             if (pastSelectedEdition != PackEditionComboBox.SelectedItem.ToString()) {
-                currentSelectedEditionNumber = PackEditionComboBox.Items.IndexOf(PackEditionComboBox.SelectedItem.ToString());
-                currentSelectedEditionNumber++;
-                packFileName = (string)currentEditionsList[currentSelectedEditionNumber.ToString()]["file_name"];
-                packMD5 = (string)currentEditionsList[currentSelectedEditionNumber.ToString()]["md5"];
-                packDownload = (string)currentEditionsList[currentSelectedEditionNumber.ToString()]["download"];
+                CurrentSelectedEditionNumber = PackEditionComboBox.Items.IndexOf(PackEditionComboBox.SelectedItem.ToString());
+                CurrentSelectedEditionNumber++;
+                Pack.FileName = (string)CurrentEditionsList[CurrentSelectedEditionNumber.ToString()]["file_name"];
+                Pack.MD5 = (string)CurrentEditionsList[CurrentSelectedEditionNumber.ToString()]["md5"];
+                Pack.Download = (string)CurrentEditionsList[CurrentSelectedEditionNumber.ToString()]["download"];
 
-                setApplyButton();
+                _updating.UpdateVisualAndPackData(this, Pack);
                 
             }
             pastSelectedEdition = PackEditionComboBox.SelectedItem.ToString();
 
-            if (!packHasOneEdition) { updateSettingsList(JsonConvert.SerializeObject((object)currentPackList[currentSelectedItemNumber.ToString()]["settings"]));
+            if (!Pack.HasOneEdition) { updateSettingsList(JsonConvert.SerializeObject((object)CurrentPackList[CurrentSelectedItemNumber.ToString()]["settings"]));
 
             /* It threw an error. So what? It just means that settings are absent. No biggie.
                 PackSettingsCheckedListBox.Enabled = false;
@@ -486,15 +293,15 @@ namespace GAsplund_s_WynnPack_Manager
 
             try
             {
-                if ((string)currentEditionsList[currentSelectedEditionNumber.ToString()]["edition_preview"] != null)
-                { packImage = (string)currentEditionsList[currentSelectedEditionNumber.ToString()]["edition_preview"]; packPreviewPictureBox.ImageLocation = packImage; }
+                if ((string)CurrentEditionsList[CurrentSelectedEditionNumber.ToString()]["edition_preview"] != null)
+                { Pack.Image = (string)CurrentEditionsList[CurrentSelectedEditionNumber.ToString()]["edition_preview"]; packPreviewPictureBox.ImageLocation = Pack.Image; }
             }
             catch { }
         }
 
         private void packPreviewPictureBox_Click(object sender, EventArgs e)
         {
-            try { System.Diagnostics.Process.Start(packImage); } catch { MessageBox.Show("Please select a pack first.", "Warning"); }
+            try { System.Diagnostics.Process.Start(Pack.Image); } catch { MessageBox.Show("Please select a pack first.", "Warning"); }
         }
 
         private void OptionsButton_Click(object sender, EventArgs e)
@@ -510,21 +317,21 @@ namespace GAsplund_s_WynnPack_Manager
 
         private void ApplySettingsButton_Click(object sender, EventArgs e)
         {
-            string appDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft\\resourcepacks\\" + packFileName + "\\";
+            string appDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft\\resourcepacks\\" + Pack.FileName + "\\";
             string SettingCachePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft\\resourcepack_manager\\localsettings\\";
             string s = "Successfully applied settings: ";
             for (int i = 0; i <= (PackSettingsCheckedListBox.Items.Count - 1); i++)
             {
                 if (PackSettingsCheckedListBox.GetItemChecked(i))
                 {
-                    s = s + "\n" + PackSettingsCheckedListBox.Items[i].ToString() + " as true";
+                    s += "\n" + PackSettingsCheckedListBox.Items[i].ToString() + " as true";
                     int realsetting = LookForSetting(PackSettingsCheckedListBox.Items[i].ToString());
-                    Console.WriteLine(currentSettings[realsetting.ToString()]["settingpaths"]);
-                    JArray SettingsAmount1 = currentSettings[realsetting.ToString()]["settingpaths"];
+                    Console.WriteLine(CurrentSettings[realsetting.ToString()]["settingpaths"]);
+                    JArray SettingsAmount1 = CurrentSettings[realsetting.ToString()]["settingpaths"];
                     int SettingsAmount = SettingsAmount1.Count();
                     for (int f = 0; f <= (SettingsAmount - 1); f++)
                     {
-                        string settingPath = currentSettings[realsetting.ToString()]["settingpaths"][f];
+                        string settingPath = CurrentSettings[realsetting.ToString()]["settingpaths"][f];
                         Console.WriteLine(settingPath);
                         try
                         {
@@ -545,15 +352,15 @@ namespace GAsplund_s_WynnPack_Manager
                     }
                 } else if (!PackSettingsCheckedListBox.GetItemChecked(i))
                 {
-                    s = s + "\n" + PackSettingsCheckedListBox.Items[i].ToString() + " as false";
+                    s += "\n" + PackSettingsCheckedListBox.Items[i].ToString() + " as false";
                     int realsetting = LookForSetting(PackSettingsCheckedListBox.Items[i].ToString());
-                    Console.WriteLine(currentSettings[realsetting.ToString()]["settingpaths"]);
-                    JArray SettingsAmount1 = currentSettings[realsetting.ToString()]["settingpaths"];
+                    Console.WriteLine(CurrentSettings[realsetting.ToString()]["settingpaths"]);
+                    JArray SettingsAmount1 = CurrentSettings[realsetting.ToString()]["settingpaths"];
                     int SettingsAmount = SettingsAmount1.Count();
                     for(int f = 0; f <= (SettingsAmount-1); f++)
                     {
                         
-                        string settingPath = currentSettings[realsetting.ToString()]["settingpaths"][f];
+                        string settingPath = CurrentSettings[realsetting.ToString()]["settingpaths"][f];
 
                         Console.WriteLine(settingPath);
                         try
